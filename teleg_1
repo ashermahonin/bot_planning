@@ -1,0 +1,21 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('5606922795:AAFJBIC9P-c__-vec5AumXChy_f85JrNuGs')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Мои встречи", url='https://outlook.live.com/owa/')) #связать апи с встречи с нужным адресом
+    markup.add(types.InlineKeyboardButton("Создать встречу", url='https://calendar.google.com/calendar/u/0/r?pli=1'))
+    bot.send_message(message.chat.id, '<b>Что вы хотите сделать?</b>', reply_markup=markup,  parse_mode='html')
+#inlinekeyboard позволит создать кнопку в сообщении для перенаправления в нужное приложение с помощью URL
+@bot.message_handler(commands=['start'])
+def start_2(message):
+    markup = types.ReplyKeyboardMarkup()
+    my_meets = types.KeyboardButton('Мои встречи')
+    create_meets = types.KeyboardButton('Создать встречу')
+    markup.add(my_meets, create_meets)
+    bot.send_message(message.chat.id, 'Что вы хотите сделать?', reply_markup=markup)
+
+#@bot.message_handler(commands=[])
